@@ -1,6 +1,6 @@
 
 fn main() {
-    let v = vec![1_u8, 2, 3];
+    let v = vec![1, 2, 3];
     v.each(|item| println!("step: {}", item));
 }
 
@@ -8,11 +8,11 @@ fn main() {
 pub trait Each<T> {
     /// For each value in a collection returns reference to a value
     /// calling `f` function.
-    fn each(&self, f: |&T|);
+    fn each<F>(&self, f: F) where F: Fn(&T);
 }
 
 impl<T> Each<T> for Vec<T> {
-    fn each(&self, f: |&T|) {
+    fn each<F>(&self, f: F) where F: Fn(&T) {
         for v in self.iter() {
             f(v);
         }
